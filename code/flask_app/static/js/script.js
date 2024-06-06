@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Create a chat <li> element with passed message and className
         const chatLi = document.createElement("li");
         chatLi.classList.add("chat", `${className}`);
-        let chatContent = className === "outgoing" ? `<p></p>` : `<img src="{{ url_for('static', filename='images/robo.jpg') }}" alt="Image"><p></p>`;
+        let chatContent = className === "outgoing" ? `<p></p>` : `<img src="static/js/deloite_bot.jpg" alt="gImage"><p></p>`;
         chatLi.innerHTML = chatContent;
         chatLi.querySelector("p").textContent = message;
         return chatLi; // return chat <li> element
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
              // Remove any trailing newline
             //const result = result_p.trim();
 
-            console.log(`Python script result is : ${result.result}`);
+            console.log(`Python script result: ${result.result}`);
 
             //attach result into frontend element   
             messageElement.textContent = result.result
