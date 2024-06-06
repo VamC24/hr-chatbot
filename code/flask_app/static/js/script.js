@@ -76,26 +76,47 @@ document.addEventListener("DOMContentLoaded", function () {
         return chatLi; // return chat <li> element
     };
 
-    const generateResponse = (chatElement) => {
-
+    const generateResponse = async (chatElement) => {
         //
+        console.log("started inside generate response");
+        const messageElement = chatElement.querySelector("p");
+        try {
+            console.log(`user Message: ${userMessage} `);
             
-                const { exec } = require("child_process");
+            //messageElement.textContent = "Lucknow thanks!"
+            // Make an HTTP request to your Flask route
+            const response = await fetch("/process_user_message", {
+                method: "POST",
+                body: JSON.stringify({  message: userMessage }), // Pass user input as JSON
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            
+            // console.log(`response from python code in js function: ${response} `);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch result: ${response.status} ${response.statusText}`);
+            }
+            // Get the result from the server
+            const result = await response.json();
+                
+             // Remove any trailing newline
+            //const result = result_p.trim();
 
-                // Execute the Python script
-                exec(`python3 C:/Users/vabhukya/Documents/vs_workspace/chatbot_app/llm_api.py "${userMessage}"`,  (error, stdout, stderr) => {
-                    if (error) {
-                        console.error(`Error executing Python script: ${error.message}`);
-                        return;
-                    }
-                    const result = stdout.trim(); // Remove any trailing newline
-                    messageElement.textContent = result
-                    console.log(`Python script result: ${result}`);
-                    // Use the result in your JavaScript code
-                });
+            console.log(`Python script result is : ${result.result}`);
 
-        //
+            //attach result into frontend element   
+            messageElement.textContent = result.result
 
+            
+
+            // Use the result in your JavaScript code
+            console.log(" inside generate response");
+
+        } catch (error) {
+            console.log("inside catch error of js function")
+            console.error(`Error fetching result: ${error.message}`);
+        }
        
     };
 
