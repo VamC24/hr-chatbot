@@ -108,7 +108,8 @@ document.addEventListener("DOMContentLoaded", function () {
             //attach result into frontend element   
             messageElement.textContent = result.result
 
-            
+            // Scroll to the bottom after adding response
+            chatbox.scrollTo(0, chatbox.scrollHeight);
 
             // Use the result in your JavaScript code
             console.log(" inside generate response");
@@ -155,6 +156,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     sendChatBtn.addEventListener("click", handleChat);
-    closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
-    chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
+
+    closeBtn.addEventListener("click", () => {
+        document.body.classList.remove("show-chatbot");
+    });
+
+    chatbotToggler.addEventListener("click", () => {
+        document.body.classList.toggle("show-chatbot");
+        if (document.body.classList.contains("show-chatbot")) {
+            // Scroll to the bottom when the chatbot is opened
+            chatbox.scrollTo(0, chatbox.scrollHeight);
+        }
+    });
 });
