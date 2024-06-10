@@ -74,7 +74,7 @@ body.show-chatbot .chatbot {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 20 20px 100px 0px;
   position: relative; /* Added */
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
